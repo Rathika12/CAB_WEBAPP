@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Details</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+</head>
+<body>
+        <form action="BillCalculation.html">
+                <center>
+                <h1> CHOOSE CAB TYPE </h1>
+                <table>
+                <tr><td>Choose cab types</td>
+                    <td><select name="CAB TYPES" id="cabId" onchange="SelectedCab()"> 
+                        <option value="MICRO">MICRO</option>
+                        <option value="MINI">MINI</option>
+                        <option value="PRIME">PRIME</option>
+                        </select> </td>
+                </tr>
+            </tr>
+            <tr>
+                    <td>Enter Number of km</td>
+                    <td><input type="number" name="km" placeholder="Enter number of kilometer" id="km" onchange="DisplayKm()" required></td>
+                </tr>
+            <tr><td>Enter Booking Date</td>
+                <td><input type="date" name="date" placeholder="YYYY-MM-DD" id="BookingDate" onchange="isDateExpired()" required></td>
+                </tr>
+            <tr><td>Enter Booking Time</td>
+                <td><input type="time" name="time" placeholder="HH-MM" id="BookingTime" onchange="PeekHours()" required></td>
+                </tr>
+            <td>Enter Date of Birth </td>
+           <td><input type="Date" name="dob" placeholder="Date of Birth" id="DobId" onchange="DobToAge()" required> </td>
+        </tr>
+       
+           
+               
+</table>
+<button type="submit">SUBMIT</button>
+<p id="DisplayCabId"></p>
+<p id="DisplayKms"></p>
+<p id="displayTimeId"></p>
+<p id="demo"></p>
+<p id="DisplayAgeId"></p>
+<p id="Discount"></p>
+
+<p id="displayDate"></p>
+<p id="totaldemo"></p>
+</center>
+    </form>
+    <script>
+     //Display the selected Cab  
+     function SelectedCab(){
+        let SelectedCabs = document.querySelector("#cabId").value;
+        if(SelectedCabs=="MICRO"){
+            document.getElementById("DisplayCabId").innerHTML="The selected cab is: "+SelectedCabs;
+        }
+        else if(SelectedCabs=="MINI"){
+            document.getElementById("DisplayCabId").innerHTML="The selected cab is: "+SelectedCabs;
+        }
+        else{
+            document.getElementById("DisplayCabId").innerHTML="The selected cab is: "+SelectedCabs;
+        }
+        localStorage.setItem("CAB",SelectedCabs);
+        
+    }
+    //Display Killometer 
+    function DisplayKm(){
+        let killo_meter = document.querySelector("#km").value;
+        document.getElementById("DisplayKms").innerHTML="The Journey killometer is: "+killo_meter;
+        localStorage.setItem("KilloMeter",killo_meter);
+
+    }
+    //Verify the Journey date,Accept only future date.
+    function isDateExpired(){
+        let GivenDate = document.querySelector("#BookingDate").value;
+        let FormatedDate = new Date(GivenDate);
+        let today = new Date();
+        if(FormatedDate<today){
+            alert("Expired Date");
+        }
+        else{
+            alert("Your journey is confrimed");
+         }
+         localStorage.setItem("DATE",FormatedDate);
+    }
+    //Finding Peek hours
+    function PeekHours(){
+        let JournyTime = document.querySelector("#BookingTime").value;
+        let hours = parseInt(JournyTime.substr(0,2));
+        if(hours>=16 && hours<=19){
+                     alert("You choosen peek hours there is an extra charge for about 1.25%");
+        }
+        else{
+            alert("Booking Time is Peek hours");
+        }
+        localStorage.setItem("PEEKTIME",JournyTime);
+        localStorage.setItem("HOURS"+hours);
+    }
+    //Find Age using DOB
+    function DobToAge(){
+        let BirthDate = document.querySelector("#DobId").value;
+        let FormatedDob = new Date(BirthDate);
+        let Today = new Date();
+        let DobYear = FormatedDob.getFullYear();
+        let presentYear = Today.getFullYear();
+        let age = presentYear-DobYear;
+        document.getElementById("DisplayAgeId").innerHTML="Your Age is:"+age;
+        localStorage.setItem("DOB",FormatedDob); 
+        localStorage.setItem("AGE",age);
+    }
+    </script>
+</body>
+</html>
