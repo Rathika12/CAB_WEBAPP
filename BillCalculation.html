@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>BILL</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+    <script src="main.js"></script>
+</head>
+<center>
+<body>
+    <h1>BILL ESTIMATION</h1>
+    <p id="BillId"></p>
+    
+    <script>
+        //Find the total amount with discount and display it.
+        function DisplayBill(){
+            let Cab_Name = localStorage.getItem("CAB");
+            let Kilometers = localStorage.getItem("KilloMeter");
+            let Time = localStorage.getItem("PEEKTIME");
+            let JourneyDate = localStorage.getItem("DATE");
+            let Dob = localStorage.getItem("DOB");
+            let age = localStorage.getItem("AGE");
+            let hours = localStorage.getItem("HOURS");
+            let cost=0
+            if(Cab_Name=="MICRO"){
+               cost=10*Kilometers;
+            }
+            else if(Cab_Name=="MINI"){
+                cost=15*Kilometers;
+            }
+            else{
+                cost=20*Kilometers;
+            }
+            let GST=(cost+(cost*0.07));
+            let costwithPeek=0;
+            if(hours>=16 && hours<=19){
+                costwithPeek=(GST+(GST*0.00125));
+            }
+            else{
+                costwithPeek=GST;
+            }
+            let FinalCost=0;
+            if(age>=60){
+                FinalCost=(GST-(GST*0.5));
+            }
+            else{
+                FinalCost=costwithPeek;
+            }
+            let table=`<table><tr><td>CAB NAME</td><td>${Cab_Name}</td></tr>
+                       <tr><td>KILOMETERS</td><td>${Kilometers} </td></tr>
+                       <tr><td>JOURNEY DATE</td><td>${JourneyDate}</td></tr>
+                       <tr><td>JOURNEY TIME</td><td>${Time}</td></tr>
+                       <tr><td>DateOfBirth</td><td>${Dob}</td></tr>
+                       <tr><td>AGE</td><td>${age}</td></tr>
+                       <tr><td>ORGINAL COST</td><td>${cost}</td></tr>
+                       <tr><td>GST</td><td>7%</td></tr>
+                       <tr><td>COST WITH GST</td><td>${GST}</td></tr>
+                       <tr><td>COST WITH PEEKTIME</td><td>${costwithPeek}</td></tr>
+                        <tr><td>FINAL COST</td><td>${FinalCost}</td></tr>
+                        </table>`;
+
+            document.getElementById("BillId").innerHTML=table;
+                    }
+
+        
+     DisplayBill();
+        </script>
+</body>
+</center>
+</html>
