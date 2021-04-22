@@ -1,0 +1,58 @@
+<!DOCTYPE html> 
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Login</title>
+</head>
+<body>
+<center>
+<h1>LOGIN PAGE</h1>
+<form action="ViewCabDetails.html">
+<table>
+    <tr><td>Enter Mobile Number</td>
+    <td><input type="number" name="mobile number" placeholder = "Enter Mobile number" id="mobilenumberId" onchange="mobilenumberValidate()" required autofocus></td>
+    </tr>
+    <tr><td>Enter your Password </td>
+    <td><input type="password" name="password" placeholder="Password" id="passwordId" onchange="passwordValidate()" required></td>
+    </tr>
+</table>
+<button type="submit" onclick="login()">SUBMIT</button>
+</form>
+<script>
+let MobilenumberValidation=false,PasswordValidation=false;
+//Mobile Number Validation with 10 numbers
+function mobilenumberValidate(){
+    let mobileNumber = document.querySelector("#mobilenumberId").value;
+    if(mobileNumber.length==10){
+       MobilenumberValidation=true;
+    } 
+    else{
+        MobilenumberValidation=false;
+      alert("Incorrect Mobile Number");
+    }
+}
+//Password Validation:password contain minimum of 6 characters.
+function passwordValidate(){
+    let Password = document.querySelector("#passwordId").value;
+    
+    if(Password.length>6){
+        PasswordValidation=true;
+    }
+    else{
+            PasswordValidation=false;
+        alert("Password should have minimum 6 characters");
+    }
+}
+//allow user only thet enter correct details.
+function login(){
+    event.preventDefault();
+    if(MobilenumberValidation==true && PasswordValidation==true){
+        alert("Wellcome");
+    window.location.href="ViewCabDetails.html";
+    }
+    
+}
+</script>
+</center>
+</body>
+</html>
