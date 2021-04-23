@@ -33,7 +33,7 @@
                 <td><input type="time" name="time" placeholder="HH-MM" id="BookingTime" onchange="PeekHours()" required></td>
                 </tr>
             <td>Enter Date of Birth </td>
-           <td><input type="Date" name="dob" placeholder="Date of Birth" id="DobId" onchange="DobToAge()" required> </td>
+           <td><input type="Date" name="dob" placeholder="Date of Birth" id="DobId" onchange="DobToAge()" max="2000-12-31" required> </td>
         </tr>
        
            
@@ -70,9 +70,14 @@
     //Display Killometer 
     function DisplayKm(){
         let killo_meter = document.querySelector("#km").value;
-        document.getElementById("DisplayKms").innerHTML="The Journey killometer is: "+killo_meter;
-        localStorage.setItem("KilloMeter",killo_meter);
-
+        if(killo_meter<=0){
+            alert("Killometer is invalid");
+        }
+        else{
+            document.getElementById("DisplayKms").innerHTML="The Journey killometer is: "+killo_meter;
+            localStorage.setItem("KilloMeter",killo_meter);
+       }
+        
     }
     //Verify the Journey date,Accept only future date.
     function isDateExpired(){
@@ -95,7 +100,7 @@
                      alert("You choosen peek hours there is an extra charge for about 1.25%");
         }
         else{
-            alert("Booking Time is Peek hours");
+            alert("Booking Time is not Peek hours");
         }
         localStorage.setItem("PEEKTIME",JournyTime);
         localStorage.setItem("HOURS"+hours);
